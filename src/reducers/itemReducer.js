@@ -6,17 +6,28 @@ const itemReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       //TODO
-
-      break;
+      return {
+        ...state,
+        cartItems: [...state.cartItems, action.payload]
+      }
     case REMOVE_FROM_CART:
       //TODO
-
-      break;
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(cartItem => cartItem.itemId !== action.payload.itemId)
+      }
     case SET_QUANTITY:
       let idx = state.cartItems.findIndex(el => el.itemId === action.payload.itemId)
       //TODO
+      return {
+        ...state,
+        cartItems: [
+          ...state.cartItems.slice(0,idx),
+          action.payload,
+          ...state.cartItems.slice(idx+1)
+        ]
+      }
 
-      break;
     default:
       return state;
   }
