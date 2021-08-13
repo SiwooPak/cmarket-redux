@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeFromCart, setQuantity } from '../actions';
+import { removeFromCart, setQuantity, notify } from '../actions';
 import CartItem from '../components/CartItem'
 import OrderSummary from '../components/OrderSummary'
 
@@ -31,13 +31,18 @@ export default function ShoppingCart() {
 
   const handleQuantityChange = (quantity, itemId) => {
     //TODO: dispatch 함수를 호출하여 액션을 전달하세요.
-    dispatch(setQuantity(itemId, quantity))
+    dispatch(setQuantity(itemId, quantity));
+    const selected_item = items.filter(item => item.id === itemId)[0]; 
+
+    dispatch(notify(`장바구니에 ${selected_item.name}의 수량이 ${quantity}로 변경되었습니다.`))
   }
 
   const handleDelete = (itemId) => {
     setCheckedItems(checkedItems.filter((el) => el !== itemId))
     //TODO: dispatch 함수를 호출하여 액션을 전달하세요.
     dispatch(removeFromCart(itemId))
+    const selected_item = items.filter(item => item.id === itemId)[0]; 
+    dispatch(notify(`장바구니에서 ${selected_item.name}이 삭제되었습니다.`));
   }
 
   const getTotal = () => {

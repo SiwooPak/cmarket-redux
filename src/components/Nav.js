@@ -10,7 +10,7 @@ function Nav() {
     <div id="nav-body">
       <span id="title">
         <img id="logo" src="../logo.png" alt="logo" />
-        <span id="name">CMarket</span>
+        <Link to="/"><span id="name">CMarket</span></Link>
       </span>
       <div id="menu">
         <Link to="/">상품리스트</Link>
